@@ -1,12 +1,16 @@
 FROM centos:7
 MAINTAINER Jerry Ai <awz@awz.cn>
+RUN mkdir /src
 RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 COPY src/etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
-RUN mkdir /src
-COPY src/epel-release-latest-7.noarch.rpm /src/epel-release-latest-7.noarch.rpm
+COPY src/etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo
+#COPY src/epel-release-latest-7.noarch.rpm /src/epel-release-latest-7.noarch.rpm
 COPY src/webtatic-release.rpm /src/webtatic-release.rpm
+RUN rpm -ivh /src/webtatic-release.rpm
+#RUN rpm -ivh /src/epel-release-latest-7.noarch.rpm
 RUN yum makecache
 
+# install base app
 RUN yum install -y openssh openssh-clients net-tools
 
 # install openssh-server

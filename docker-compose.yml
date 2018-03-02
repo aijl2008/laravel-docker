@@ -1,0 +1,52 @@
+version: '2'
+services:
+  web:
+    image: core01/centos
+    build: .
+    tty: true
+    ports:
+     - "80:80"
+     - "443:443"
+    volumes:
+     - ./etc/nginx/conf.d/:/etc/nginx/conf.d/
+     - ./etc/php-fpm.conf:/etc/php-fpm.conf
+     - ./etc/php-fpm.d/:/etc/php-fpm.d/
+     - ./etc/php.ini:/etc/php.ini
+     - ./etc/php.d:/etc/php.d
+     - ./etc/redis.conf:/etc/redis.conf
+     - ./etc/supervisord.conf:/etc/supervisord.conf
+     - ./etc/supervisord.d:/etc/supervisord.d
+     - ./etc/my.cnf:/etc/my.cnf
+     - ./etc/my.cnf.d:/etc/my.cnf.d
+    privileged: true
+    extra_hosts:
+     - "aktas.dev:127.0.0.1"
+
+     version: '2'
+
+     services:
+         mysql:
+             image: mysql:5.7
+             ports:
+                 - '3306:3306'
+             volumes:
+                 - ./data/mysql:/var/lib/mysql
+             restart: on-failure
+             env_file:
+                 - docker.env
+
+         nginx:
+             image: nginx:1.13
+             ports:
+                 - '80:80'
+             restart: on-failure
+             volumes:
+                 - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+                 - ~/Projects:/code
+
+         php-fpm:
+             build: php-fpm
+             restart: on-failure
+             volumes:
+                 - ./php-fpm/php.ini:/usr/local/etc/php/conf.d/custom.ini
+     - ~/Projects:/code

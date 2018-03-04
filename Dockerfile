@@ -78,6 +78,9 @@ RUN systemctl enable php-fpm.service
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 
+# install vcs
+RUN yum install -y subversion git
+
 WORKDIR /var/www/html/
 EXPOSE 22 80 443 3306 6379 5000 9999 27017
 

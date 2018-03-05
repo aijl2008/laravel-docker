@@ -12,7 +12,6 @@ RUN yum install -y net-tools wget initscripts
 # install openssh-server
 RUN yum install -y openssh openssh-clients openssh-server
 RUN /usr/sbin/sshd-keygen -A
-#RUN sed -ri 's/#PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN echo 'root:123456' |chpasswd
 
 
@@ -20,6 +19,18 @@ RUN echo 'root:123456' |chpasswd
 RUN yum install -y supervisor
 RUN sed -i "s/;\[inet_http_server\]/\[inet_http_server\]/" /etc/supervisord.conf && \
 sed -i "s/;port=127.1.0.1:9001/port=0.0.0.0:9999/" /etc/supervisord.conf
+
+RUN echo [program:sshd] >> /etc/supervisord.conf && \
+    echo command=/usr/sbin/sshd >> /etc/supervisord.conf && \
+    echo [program:mysqld] >> /etc/supervisord.conf && \
+    echo command=/usr/sbin/mysqld >> /etc/supervisord.conf && \
+    echo [program:redis] >> /etc/supervisord.conf && \
+    echo command=/usr/bin/redis-server >> /etc/supervisord.conf && \
+    echo 'command="/usr/bin/mongod -f /etc/mongod.conf"' >> /etc/supervisord.conf && \
+    echo [program:nginx] >> /etc/supervisord.conf && \
+    echo command=/usr/sbin/nginx >> /etc/supervisord.conf && \
+    echo [program:php-fpm] >> /etc/supervisord.conf && \
+    echo command=/usr/sbin/php-fpm >> /etc/supervisord.conf
 
 # install redis
 RUN yum install -y redis
@@ -75,6 +86,8 @@ RUN sed -i -e "s/user = .*/user = php-fpm/" /etc/php-fpm.d/www.conf && \
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
+RUN composer global nconfig -g repo.packagist composer https://packagist.phpcomposer.com
+RUN composer global config secure-http false
 
 # install vcs
 RUN yum install -y subversion git

@@ -71,6 +71,4 @@ RUN yum install -y subversion git
 WORKDIR /var/www/html/
 EXPOSE 22 80 443 3306 6379 9999 27017
 
-COPY entry.sh /entry.sh
-RUN chmod +x /entry.sh
-ENTRYPOINT ["/entry.sh"]
+CMD ["supervisord","-n","-c","/etc/supervisord.conf"]

@@ -1,6 +1,6 @@
 #!/bin/sh
 pwd=`pwd`
-docker run -it \
+docker run -d \
 -p 80:80 \
 -p 443:443 \
 -p 3306:3308 \
@@ -28,5 +28,5 @@ docker run -it \
 -v ${pwd}/src/var/lib/mysql:/var/lib/mysql \
 -v ${pwd}/src/var/lib/redis:/var/lib/redis \
 -v ${pwd}/src/webroot:/data/webroot \
-artron/laravel-docker:1.0 /bin/bash
+artron/laravel-docker:1.0
 

@@ -1,7 +1,17 @@
+## Build
+```
+sudo docker build -t artron/laravel-docker:1 .
+
+```
+
 ## Run
 ```
 docker run -it \
 -p 80:80 \
+-p 443:443 \
+-p 3306:3308 \
+-p 9999:9999 \
+-p 27017:27017 \
 -p 4501:22 \
 -v /data/git/aijl2008/laravel-docker/src/log/mongodb:/var/log/mongodb \
 -v /data/git/aijl2008/laravel-docker/src/log/mysqld.log:/var/log/mysqld.log \

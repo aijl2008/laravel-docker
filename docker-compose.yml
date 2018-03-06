@@ -33,4 +33,3 @@ services:
      - ./var/lib/mysql:/var/lib/mysql
      - ./var/lib/redis:/var/lib/redis
      - ./webroot:/data/webroot
-    privileged: true

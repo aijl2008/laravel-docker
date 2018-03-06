@@ -1,14 +1,25 @@
 version: '2'
 services:
   web:
-    image: core01/centos
     build: .
     tty: true
     ports:
+     - "22:22"
      - "80:80"
      - "443:443"
+     - "3306:3306"
+     - "6379:6379"
+     - "9999:9999"
+     - "27017:27017"
     volumes:
-     - ./etc/nginx/conf.d/:/etc/nginx/conf.d/
+     - ./log/mongodb:/var/log/mongodb
+     - ./log/mysqld.log:/var/log/mysqld.log
+     - ./log/nginx:/var/log/nginx
+     - ./log/php-fpm:/var/log/php-fpm
+     - ./log/php:/var/log/php
+     - ./log/redis:/var/log/redis
+     - ./log/supervisor:/var/log/supervisor
+     - ./etc/nginx/:/etc/nginx/
      - ./etc/php-fpm.conf:/etc/php-fpm.conf
      - ./etc/php-fpm.d/:/etc/php-fpm.d/
      - ./etc/php.ini:/etc/php.ini
@@ -17,36 +28,9 @@ services:
      - ./etc/supervisord.conf:/etc/supervisord.conf
      - ./etc/supervisord.d:/etc/supervisord.d
      - ./etc/my.cnf:/etc/my.cnf
-     - ./etc/my.cnf.d:/etc/my.cnf.d
+     - ./etc/mongod.conf:/etc/mongod.cnf
+     - ./var/lib/mongodb:/var/lib/mongodb
+     - ./var/lib/mysql:/var/lib/mysql
+     - ./var/lib/redis:/var/lib/redis
+     - ./webroot:/data/webroot
     privileged: true
-    extra_hosts:
-     - "aktas.dev:127.0.0.1"
-
-     version: '2'
-
-     services:
-         mysql:
-             image: mysql:5.7
-             ports:
-                 - '3306:3306'
-             volumes:
-                 - ./data/mysql:/var/lib/mysql
-             restart: on-failure
-             env_file:
-                 - docker.env
-
-         nginx:
-             image: nginx:1.13
-             ports:
-                 - '80:80'
-             restart: on-failure
-             volumes:
-                 - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-                 - ~/Projects:/code
-
-         php-fpm:
-             build: php-fpm
-             restart: on-failure
-             volumes:
-                 - ./php-fpm/php.ini:/usr/local/etc/php/conf.d/custom.ini
-     - ~/Projects:/code

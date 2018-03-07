@@ -67,6 +67,8 @@ RUN composer global config secure-http false
 
 # install vcs
 RUN yum install -y subversion git
+COPY vhost /usr/bin/vhost
+RUN /usr/bin/chmod +x /usr/bin/vhost
 
 WORKDIR /var/www/html/
 EXPOSE 22 80 443 3306 6379 9999 27017

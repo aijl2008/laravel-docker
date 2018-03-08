@@ -1,13 +1,23 @@
 #!/bin/sh
 pwd=`pwd`/src
+oldpwd=`pwd`/src
 tag="laravel"
 ip="0.0.0.0"
 if [ $1 ];then
     ip=$1
 fi
-echo $2
 if [ $2 ];then
     pwd=$2
+    if [ ! -d pwd ];
+    then
+        mkdir -p ${pwd}
+    fi
+    echo ${oldpwd}
+    find ${oldpwd} -type f
+
+    cp -r ${oldpwd} ${pwd}
+    echo ${pwd}
+    find ${pwd} -type f
 fi
 if [ $3 ];then
     tag=$3
@@ -41,4 +51,4 @@ docker run -d \
 -v ${pwd}/var/lib/mysql:/var/lib/mysql \
 -v ${pwd}/var/lib/redis:/var/lib/redis \
 -v ${pwd}/webroot:/data/webroot \
-artron/laravel-docker:1.1
+artron/laravel-docker:1.0

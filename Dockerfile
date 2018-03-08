@@ -6,7 +6,7 @@ RUN rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 RUN yum makecache
 
 # install base app
-RUN yum install -y net-tools wget initscripts
+RUN yum install -y net-tools wget initscripts yum install gcc
 
 # install openssh-server
 RUN yum install -y openssh openssh-clients openssh-server
@@ -36,24 +36,27 @@ RUN yum install -y mongodb mongodb-server
 # install php
 RUN yum -y install  php71w \
                     php71w-common \
+                    php71w-devel \
                     php71w-fpm \
                     php71w-gd \
                     php71w-imap \
                     php71w-mbstring \
                     php71w-mcrypt \
                     php71w-mysqlnd \
+                    php71w-mysql \
                     php71w-pdo \
                     php71w-pear \
                     php71w-pecl-imagick \
                     php71w-pecl-memcached \
+                    php71w-process \
                     php71w-pecl-mongodb \
                     php71w-pecl-redis \
                     php71w-pecl-xdebug \
-                    php71w-process \
                     php71w-tidy \
                     php71w-xml \
                     php71w-xmlrpc
-
+# update mongodb to 1.4.x
+COPY modules/mongodb.so /usr/lib64/php/modules/mongodb.so
 RUN /sbin/useradd php-fpm
 RUN /bin/mkdir /var/log/php
 

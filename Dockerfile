@@ -43,7 +43,6 @@ RUN yum -y install  php71w \
                     php71w-mbstring \
                     php71w-mcrypt \
                     php71w-mysqlnd \
-                    php71w-mysql \
                     php71w-pdo \
                     php71w-pear \
                     php71w-pecl-imagick \
@@ -56,7 +55,6 @@ RUN yum -y install  php71w \
                     php71w-xml \
                     php71w-xmlrpc
 # update mongodb to 1.4.x
-COPY modules/mongodb.so /usr/lib64/php/modules/mongodb.so
 RUN /sbin/useradd php-fpm
 RUN /bin/mkdir /var/log/php
 

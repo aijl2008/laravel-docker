@@ -18,6 +18,7 @@ fi
 echo Coping \'${original_path}\' to \'${runtime_path}\' ......
 cp -r ${original_path}/* ${runtime_path}
 chmod -R 777 ${runtime_path}
+chmod -R 644 ${runtime_path}/var/lib/mysql
 if [ $? -ne 0 ]
 then
 echo 'Failed'

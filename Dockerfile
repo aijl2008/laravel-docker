@@ -35,12 +35,11 @@ RUN yum install -y mongodb mongodb-server
 
 # install php
 RUN yum -y install  php71w \
-                    php71w-cli \
-                    php71w-fpm \
                     php71w-common \
-                    php71w-mbstring \
-                    php71w-imap \
+                    php71w-fpm \
                     php71w-gd \
+                    php71w-imap \
+                    php71w-mbstring \
                     php71w-mcrypt \
                     php71w-mysqlnd \
                     php71w-pdo \
@@ -50,6 +49,7 @@ RUN yum -y install  php71w \
                     php71w-pecl-mongodb \
                     php71w-pecl-redis \
                     php71w-pecl-xdebug \
+                    php71w-process \
                     php71w-tidy \
                     php71w-xml \
                     php71w-xmlrpc

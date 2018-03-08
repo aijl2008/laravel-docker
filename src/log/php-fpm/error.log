@@ -1,0 +1,18 @@
+[08-Mar-2018 02:17:29] NOTICE: fpm is running, pid 16
+[08-Mar-2018 02:17:29] NOTICE: ready to handle connections
+[08-Mar-2018 02:17:29] NOTICE: systemd monitor interval set to 10000ms
+[08-Mar-2018 02:17:30] ERROR: unable to bind listening socket for address '127.0.0.1:9000': Address already in use (98)
+[08-Mar-2018 02:17:30] ERROR: FPM initialization failed
+[08-Mar-2018 02:17:32] ERROR: unable to bind listening socket for address '127.0.0.1:9000': Address already in use (98)
+[08-Mar-2018 02:17:32] ERROR: FPM initialization failed
+[08-Mar-2018 02:17:35] ERROR: unable to bind listening socket for address '127.0.0.1:9000': Address already in use (98)
+[08-Mar-2018 02:17:35] ERROR: FPM initialization failed
+[08-Mar-2018 03:25:31] NOTICE: fpm is running, pid 23
+[08-Mar-2018 03:25:31] NOTICE: ready to handle connections
+[08-Mar-2018 03:25:31] NOTICE: systemd monitor interval set to 10000ms
+[08-Mar-2018 03:25:32] ERROR: unable to bind listening socket for address '127.0.0.1:9000': Address already in use (98)
+[08-Mar-2018 03:25:32] ERROR: FPM initialization failed
+[08-Mar-2018 03:25:34] ERROR: unable to bind listening socket for address '127.0.0.1:9000': Address already in use (98)
+[08-Mar-2018 03:25:34] ERROR: FPM initialization failed
+[08-Mar-2018 03:25:37] ERROR: unable to bind listening socket for address '127.0.0.1:9000': Address already in use (98)
+[08-Mar-2018 03:25:37] ERROR: FPM initialization failed

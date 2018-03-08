@@ -22,7 +22,7 @@ fi
 if [ $3 ];then
     tag=$3
 fi
-docker run -d \
+echo "run -d \
 --name ${tag} \
 -p ${ip}:80:80 \
 -p ${ip}:443:443 \
@@ -51,4 +51,4 @@ docker run -d \
 -v ${pwd}/var/lib/mysql:/var/lib/mysql \
 -v ${pwd}/var/lib/redis:/var/lib/redis \
 -v ${pwd}/webroot:/data/webroot \
-artron/laravel-docker:1.0
+artron/laravel-docker:1.0"

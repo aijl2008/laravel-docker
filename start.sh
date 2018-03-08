@@ -2,7 +2,7 @@
 runtime_path=/data/docker/container/default
 original_path=`pwd`/src
 tag="laravel"
-ip="127.0.0.1"
+ip="0.0.0.0"
 if [ $1 ];then
     ip=$1
 fi
@@ -15,8 +15,17 @@ fi
 if [ ! -d runtime_path ];then
  mkdir -p ${runtime_path}
 fi
-cp -r ${original_path} ${runtime_path}
-echo "docker run -d \
+echo Coping \'${original_path}\' to \'${runtime_path}\' ......
+cp -r ${original_path}/* ${runtime_path}
+chmod -R 777 ${runtime_path}
+if [ $? -ne 0 ]
+then
+echo 'Failed'
+exit
+else
+echo 'Success'
+fi
+echo "Running docker run -d \
 --name ${tag} \
 -p ${ip}:80:80 \
 -p ${ip}:443:443 \
@@ -76,5 +85,11 @@ docker run -d \
 -v ${runtime_path}/var/lib/redis:/var/lib/redis \
 -v ${runtime_path}/webroot:/data/webroot \
 artron/laravel-docker:1.0
-
-echo "docker exec -it ${tag} /bin/bash"
+if [ $? -ne 0 ]
+then
+echo 'Failed'
+exit
+else
+echo 'Success'
+fi
+echo Please run \'docker exec -it ${tag} /bin/bash\' to enter into the container
